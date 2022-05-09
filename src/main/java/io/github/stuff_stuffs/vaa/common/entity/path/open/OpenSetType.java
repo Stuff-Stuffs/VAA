@@ -1,4 +1,4 @@
-package io.github.stuff_stuffs.vaa.common.path.open;
+package io.github.stuff_stuffs.vaa.common.entity.path.open;
 
 import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
 import net.minecraft.util.Identifier;

@@ -1,5 +1,7 @@
 package io.github.stuff_stuffs.vaa.common.util;
 
+import io.github.stuff_stuffs.vaa.common.entity.path.PathingChunkSection;
+import io.github.stuff_stuffs.vaa.common.entity.path.valid.ValidLocationSetType;
 import it.unimi.dsi.fastutil.HashCommon;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -43,13 +45,25 @@ public class WorldCache extends ChunkCache {
         }
     }
 
+    public <T> T getLocationType(final int x, final int y, final int z, final ValidLocationSetType<T> type) {
+        final Chunk chunk = getChunk(x >> 4, z >> 4);
+        if (chunk == null) {
+            return type.getUniverseInfo().getDefaultValue();
+        }
+        final ChunkSection section = chunk.getSection(chunk.getSectionIndex(y));
+        if (section == null) {
+            return type.getUniverseInfo().getDefaultValue();
+        }
+        return ((PathingChunkSection) section).vaa$getValidLocationSet(type, x, y, z, this).get(x, y, z);
+    }
+
     private void populateCache(final int x, final int y, final int z, final long idx, final int pos) {
         final Chunk chunk = getChunk(x >> 4, z >> 4);
         if (keys[pos] != DEFAULT_KEY) {
             cacheEvictions++;
         }
         if (chunk != null) {
-            ChunkSection chunkSection = chunk.getSectionArray()[world.getSectionIndex(y)];
+            final ChunkSection chunkSection = chunk.getSectionArray()[world.getSectionIndex(y)];
             keys[pos] = idx;
             if (chunkSection == null) {
                 blockStates[pos] = AIR;

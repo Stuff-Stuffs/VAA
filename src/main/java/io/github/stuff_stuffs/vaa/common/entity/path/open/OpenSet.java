@@ -1,7 +1,7 @@
-package io.github.stuff_stuffs.vaa.common.path.open;
+package io.github.stuff_stuffs.vaa.common.entity.path.open;
 
+import io.github.stuff_stuffs.vaa.common.util.WorldCache;
 import net.minecraft.util.math.ChunkSectionPos;
-import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkSection;
 
 public final class OpenSet {
@@ -13,7 +13,7 @@ public final class OpenSet {
     private static final int DATA_SIZE = (16 * 16 * 16 * 2) / 8;
     private final byte[] data = new byte[DATA_SIZE];
 
-    public OpenSet(final ChunkSection section, final ChunkSectionPos sectionPos, final World world, final OpenSetType setType) {
+    public OpenSet(final ChunkSection section, final ChunkSectionPos sectionPos, final WorldCache world, final OpenSetType setType) {
         final Classifier classifier = setType.getClassifier();
         final int baseX = sectionPos.getMinX();
         final int baseY = sectionPos.getMinY();
@@ -59,6 +59,6 @@ public final class OpenSet {
     }
 
     public interface Classifier {
-        Type classify(int x, int y, int z, ChunkSection section, World world);
+        Type classify(int x, int y, int z, ChunkSection section, WorldCache world);
     }
 }
