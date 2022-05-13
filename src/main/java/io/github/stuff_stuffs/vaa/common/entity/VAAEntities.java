@@ -20,9 +20,6 @@ public class VAAEntities {
 
     public static void init() {
         register("test", TEST_ENTITY_TYPE);
-    }
-
-    static {
         FabricDefaultAttributeRegistry.register(TEST_ENTITY_TYPE, MobEntity.createMobAttributes());
     }
 }
